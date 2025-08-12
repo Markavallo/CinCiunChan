@@ -98,7 +98,6 @@
     text-align: right;
     letter-spacing: 1px;
     text-transform: uppercase;
-    font-family: monospace;
   }
 </style>
 </head>
@@ -119,9 +118,10 @@
   <div class="cn-footer">
     <div class="cn-text">
       <div id="cn-date"></div>
-      <div id="cn-code">太空指挥中心</div>
+      <div id="cn-code">ORBITAL COMMAND</div>
+      <div style="font-size:0.8em; margin-top:2px;">团队中国</div>
     </div>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_China.svg" alt="Chinese Flag">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Flag_of_the_People%27s_Republic_of_China.svg" alt="Chinese Flag">
   </div>
 </div>
 
@@ -136,7 +136,7 @@ const targets = [
 const ACQUIRE_RANGE = 20; // metri
 
 // === STATO ===
-let collected = JSON.parse(localStorage.getItem("collectedDataCN") || "[]");
+let collected = JSON.parse(localStorage.getItem("collectedData") || "[]");
 if (collected.length === 0) collected = targets.map(() => null);
 
 let currentPosition = null;
@@ -212,7 +212,7 @@ function acquireData() {
     return;
   }
   collected[nextIndex] = targets[nextIndex].desc;
-  localStorage.setItem("collectedDataCN", JSON.stringify(collected));
+  localStorage.setItem("collectedData", JSON.stringify(collected));
   document.getElementById("status").textContent = `${targets[nextIndex].name} acquisito!`;
   updateCoordsUI();
 }
@@ -238,7 +238,7 @@ function getPosition() {
 
 function resetGame() {
   if (confirm("Sei sicuro di voler resettare il gioco?")) {
-    localStorage.removeItem("collectedDataCN");
+    localStorage.removeItem("collectedData");
     collected = targets.map(() => null);
     updateCoordsUI();
     document.getElementById("status").textContent = "Gioco resettato.";
@@ -258,7 +258,7 @@ updateCoordsUI();
 
 const now = new Date();
 document.getElementById("cn-date").textContent =
-  now.toLocaleDateString("zh-CN", { year: 'numeric', month: '2-digit', day: '2-digit' });
+  now.toLocaleDateString("en-US", { month: '2-digit', day: '2-digit', year: 'numeric' });
 </script>
 </body>
 </html>
